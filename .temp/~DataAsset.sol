@@ -39,7 +39,7 @@ contract DataAsset is Ownable {
         _;
     }
 
-    function createAsset(uint256 tokenId, DataNFT calldata dataNFT) external {
+    function CreateAsset(uint256 tokenId, DataNFT calldata dataNFT) external {
         require(dataNFTs[tokenId].owner == address(0), "Token already exists");
 
         dataNFTs[tokenId] = dataNFT;
