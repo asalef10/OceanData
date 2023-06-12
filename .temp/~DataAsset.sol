@@ -11,7 +11,7 @@ contract DataAsset is Ownable {
     uint8 constant TOKEN_DECIMALS = 18;
     mapping(uint256 => mapping(address => bool)) buyersData;
     IERC20 public USDC_TOKEN;
-
+    address private factoryAddress;
     address constant USDC_TOKEN_ADDRESS =
         0x233175cecC981aedDcFbe4fB15A462B221f3C8C0;
 
@@ -26,8 +26,10 @@ contract DataAsset is Ownable {
         _;
     }
 
-    function CreateAsset(uint256 tokenId, DataAssetTypes.DataNFT calldata dataNFT) external {
+    function CreateAsset(uint256 tokenId,address _factoryAddress, DataAssetTypes.DataNFT calldata dataNFT) external {
         require(dataNFTs[tokenId].owner == address(0), "Token already exists");
+
+        factoryAddress = _factoryAddress
 
         dataNFTs[tokenId] = dataNFT;
 
@@ -50,7 +52,7 @@ contract DataAsset is Ownable {
 
         bool feeTransferred = USDC_TOKEN.transferFrom(
             msg.sender,
-            address(this),
+            factoryAddress,
             feeAmount
         );
         require(feeTransferred, "Fee transfer failed");
