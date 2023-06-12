@@ -13,30 +13,23 @@ To install and compile the contracts, follow these steps:
 
 * 1. Clone this repository:
 
-bash
-Copy code
-git clone https://github.com/asalef10/OceanData
-Install the dependencies:
+- git clone https://github.com/asalef10/OceanData
 
-Copy code
-npm install
-Compile the contracts:
+* 2. Install the dependencies:
 
-python
-Copy code
-truffle compile
-Testing
-To run the test suite:
+- npm install
 
-bash
-Copy code
-truffle test
-Deployment
-To deploy the contracts to a local Ethereum network:
+* 3. Compile the contracts:
 
-css
-Copy code
-truffle migrate --network development
+- truffle compile
+
+
+# Deployment
+- To deploy the contracts to a local Ethereum network:
+
+
+* truffle migrate --network development
+
 For deployment to a live network, please configure the appropriate network settings in truffle-config.js.
 
 Contract Interaction
