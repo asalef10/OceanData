@@ -5,7 +5,12 @@ import "@openzeppelin/contracts/access/Ownable.sol";
 import "./DataAssetTypes.sol";
 
 contract DataAsset is Ownable {
-    event AssetCreated(uint256 Id, address owner, uint256 price, DataAssetTypes.DDO dataDDO);
+    event AssetCreated(
+        uint256 Id,
+        address owner,
+        uint256 price,
+        DataAssetTypes.DDO dataDDO
+    );
     event AssetPurchased(uint256 tokenId, address buyer, address seller);
 
     uint8 constant TOKEN_DECIMALS = 18;
@@ -17,8 +22,9 @@ contract DataAsset is Ownable {
 
     mapping(uint256 => DataAssetTypes.DataNFT) public dataNFTs;
 
-    constructor() {
+    constructor(address _factoryAddress) {
         USDC_TOKEN = IERC20(USDC_TOKEN_ADDRESS);
+        factoryAddress = _factoryAddress;
     }
 
     modifier tokenExists(uint256 tokenId) {
@@ -26,10 +32,11 @@ contract DataAsset is Ownable {
         _;
     }
 
-    function CreateAsset(uint256 tokenId,address _factoryAddress, DataAssetTypes.DataNFT calldata dataNFT) external {
+    function CreateAsset(
+        uint256 tokenId,
+        DataAssetTypes.DataNFT calldata dataNFT
+    ) external {
         require(dataNFTs[tokenId].owner == address(0), "Token already exists");
-
-        factoryAddress = _factoryAddress
 
         dataNFTs[tokenId] = dataNFT;
 

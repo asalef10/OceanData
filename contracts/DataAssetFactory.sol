@@ -11,7 +11,7 @@ contract DataAssetFactory is Ownable {
     mapping(address => DataAsset[]) public assetsByOwner;
 
     function CreateDataAsset(uint256 tokenId) external {
-        DataAsset newAsset = new DataAsset();
+        DataAsset newAsset = new DataAsset(address(this));
         newAsset.transferOwnership(msg.sender);
 
         DataAssetTypes.DDO memory dataDDO = DataAssetTypes.DDO({
