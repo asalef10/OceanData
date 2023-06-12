@@ -1,5 +1,5 @@
-const DataAsset = artifacts.require("DataAsset");
+const DataAssetFactory = artifacts.require("DataAssetFactory");
 
-module.exports = function (deployer) {
-  deployer.deploy(DataAsset);
+module.exports = function(deployer) {
+  deployer.deploy(DataAssetFactory);
 };

@@ -2,24 +2,11 @@ pragma solidity ^0.8.0;
 
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
+import "./DataAssetTypes.sol";
 
 contract DataAsset is Ownable {
-    event AssetCreated(uint256 Id, address owner, uint256 price, DDO dataDDO);
+    event AssetCreated(uint256 Id, address owner, uint256 price, DataAssetTypes.DDO dataDDO);
     event AssetPurchased(uint256 tokenId, address buyer, address seller);
-
-    struct DDO {
-        string title;
-        string description;
-        string metadata;
-        string encryptedFileURL;
-    }
-
-    struct DataNFT {
-        uint256 Id;
-        address owner;
-        uint256 price;
-        DDO dataDDO;
-    }
 
     uint8 constant TOKEN_DECIMALS = 18;
     mapping(uint256 => mapping(address => bool)) buyersData;
@@ -28,7 +15,7 @@ contract DataAsset is Ownable {
     address constant USDC_TOKEN_ADDRESS =
         0x233175cecC981aedDcFbe4fB15A462B221f3C8C0;
 
-    mapping(uint256 => DataNFT) public dataNFTs;
+    mapping(uint256 => DataAssetTypes.DataNFT) public dataNFTs;
 
     constructor() {
         USDC_TOKEN = IERC20(USDC_TOKEN_ADDRESS);
@@ -39,7 +26,7 @@ contract DataAsset is Ownable {
         _;
     }
 
-    function CreateAsset(uint256 tokenId, DataNFT calldata dataNFT) external {
+    function CreateAsset(uint256 tokenId, DataAssetTypes.DataNFT calldata dataNFT) external {
         require(dataNFTs[tokenId].owner == address(0), "Token already exists");
 
         dataNFTs[tokenId] = dataNFT;
@@ -89,7 +76,6 @@ contract DataAsset is Ownable {
         string[] memory ddoInfo = new string[](2);
         ddoInfo[0] = dataNFTs[tokenId].dataDDO.metadata;
         ddoInfo[1] = dataNFTs[tokenId].dataDDO.encryptedFileURL;
-
         return ddoInfo;
     }
 

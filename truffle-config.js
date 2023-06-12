@@ -24,6 +24,7 @@
 // const mnemonic = fs.readFileSync(".secret").toString().trim();
 const HDWalletProvider = require('@truffle/hdwallet-provider');
 let WALLET_KEY = process.env.KEY_WALLET;
+let KEY = process.env.KEY;
 
 module.exports = {
   /**
@@ -51,8 +52,7 @@ module.exports = {
     //   network_id: "*",       // Any network (default: none)
     //  },
      polygonTestnet: {
-       provider: () => new HDWalletProvider(WALLET_KEY, `https://rpc-mumbai.maticvigil.com/v1/${KEY}`
-       ),
+       provider: () => new HDWalletProvider(WALLET_KEY, `https://rpc-mumbai.maticvigil.com/v1/${KEY}`),
        network_id: 80001,
        confirmations: 0,
        timeoutBlocks: 10,
