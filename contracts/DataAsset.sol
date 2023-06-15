@@ -22,8 +22,8 @@ contract DataAsset is Ownable {
 
     mapping(uint256 => DataAssetTypes.DataNFT) public dataNFTs;
 
-    constructor(address _factoryAddress) {
-        USDC_TOKEN = IERC20(USDC_TOKEN_ADDRESS);
+    constructor(address _factoryAddress,address _USDC_TOKEN_ADDRESS) {
+        USDC_TOKEN = IERC20(_USDC_TOKEN_ADDRESS);
         factoryAddress = _factoryAddress;
     }
 

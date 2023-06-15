@@ -7,11 +7,15 @@ import "./DataAsset.sol";
 
 contract DataAssetFactory is Ownable {
     event AssetCreated(DataAsset indexed asset, address indexed owner);
-
+    address USDC_TOKEN_ADDRESS;
     mapping(address => DataAsset[]) public assetsByOwner;
 
+    constructor(address _USDC_TOKEN_ADDRESS) {
+        USDC_TOKEN_ADDRESS = _USDC_TOKEN_ADDRESS;
+    }
+
     function CreateDataAsset(uint256 tokenId) external {
-        DataAsset newAsset = new DataAsset(address(this));
+        DataAsset newAsset = new DataAsset(address(this), USDC_TOKEN_ADDRESS);
         newAsset.transferOwnership(msg.sender);
 
         DataAssetTypes.DDO memory dataDDO = DataAssetTypes.DDO({
